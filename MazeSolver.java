@@ -11,16 +11,19 @@ import java.util.*;
  */
 public class MazeSolver
 {
+    int getUserInputX;
+    int getUserInputY;
     private Maze maze;
-    
+
     /**
      * Constructor for the MazeSolver class.
      */
     public MazeSolver(Maze maze)
     {
+
         this.maze = maze;
     }
-    
+
     /**
      * Attempts to recursively traverse the maze. Inserts special
      * characters indicating locations that have been TRIED and that
@@ -36,9 +39,8 @@ public class MazeSolver
         int row, column;
         Position pos = new Position();
         Deque<Position> stack = new LinkedList<Position>();
-        pos=
         stack.push(pos);
-        
+
         while (!(done) && !stack.isEmpty())
         {
             pos = stack.pop();
@@ -47,31 +49,33 @@ public class MazeSolver
                 done = true;  // the maze is solved
             else
             {
-                push_new_pos(pos.getx() - 1,pos.gety(), stack); 
+                push_new_pos(pos.getx() - 1,pos.gety(), stack);
                 push_new_pos(pos.getx() + 1,pos.gety(), stack);
                 push_new_pos(pos.getx(),pos.gety() - 1, stack);
-                push_new_pos(pos.getx(),pos.gety() + 1, stack); 
+                push_new_pos(pos.getx(),pos.gety() + 1, stack);
             }
         }
-        
+
         return done;
     }
-    
+
     /**
      * Push a new attempted move onto the stack
-     * @param x represents x coordinate input
-     * @param y represents y coordinate input
+     * @param x represents x coordinate
+     * @param y represents y coordinate
      * @param stack the working stack of moves within the grid
      * @return stack of moves within the grid
      */
-    private void push_new_pos(userInputX, userInputY, 
-                                         Deque<Position> stack)
+    private void push_new_pos(int x, int y,
+                              Deque<Position> stack)
     {
         Position npos = new Position();
-        npos.setx(userInputX);
-        npos.sety(userInputY);
+        npos.setx(getUserInputX);
+
+        npos.sety(getUserInputY);
         if (maze.validPosition(x,y))
             stack.push(npos);
+
     }
-    
+
 }

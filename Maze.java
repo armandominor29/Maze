@@ -14,6 +14,7 @@ public class Maze
 {
     private static final int TRIED = 2;
     private static final int PATH = 3;
+
     Scanner input=new Scanner(System.in); // Scanner class for user input
     int userInputX = input.nextInt(); //Take x input
     int userInputY = input.nextInt(); //Take y input
@@ -31,15 +32,16 @@ public class Maze
     public Maze(String filename) throws FileNotFoundException
     {
         Scanner scan = new Scanner(new File(filename));
-        numberRows = input.nextInt(); //take number of rows end point
-        numberColumns = input.nextInt(); //take number of columns end point
-        
+        numberRows = scan.nextInt();
+        numberColumns = scan.nextInt();
+
         grid = new int[numberRows][numberColumns];
         for (int i = 0; i < numberRows; i++)
             for (int j = 0; j < numberColumns; j++)
                 grid[i][j] = scan.nextInt();
+
     }
-        
+
     /**
      * Marks the specified position in the maze as TRIED
      *
@@ -50,7 +52,7 @@ public class Maze
     {
         grid[row][col] = TRIED;
     }
-    
+
     /**
      * Return the number of rows in this maze
      *
@@ -60,7 +62,7 @@ public class Maze
     {
         return grid.length;
     }
-    
+
     /**
      * Return the number of columns in this maze
      *
@@ -70,7 +72,7 @@ public class Maze
     {
         return grid[0].length;
     }
-    
+
     /**
      * Marks a given position in the maze as part of the PATH
      *
@@ -92,22 +94,25 @@ public class Maze
      */
     public boolean validPosition(int row, int column)
     {
+
         boolean result = false;
- 
+
         // check if cell is in the bounds of the matrix 
         if (row >= 0 && row < grid.length &&
-            column >= 0 && column < grid[row].length)
+                column >= 0 && column < grid[row].length)
 
             //  check if cell is not blocked and not previously tried 
             if (grid[row][column] == 1)
                 result = true;
-
+            //Print the valid positions when found excluding dead ends and invalid positions
+                if (result)
+                    System.out.println(row + "," +column);
         return result;
     }
 
     /**
      * Returns the maze as a string.
-     * 
+     *
      * @return a string representation of the maze
      */
     public String toString()
